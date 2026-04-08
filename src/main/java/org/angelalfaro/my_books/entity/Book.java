@@ -23,5 +23,5 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_user"))
-    private User borrower;
+    private User owner;
 }
