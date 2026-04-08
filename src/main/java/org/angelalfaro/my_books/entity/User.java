@@ -17,6 +17,9 @@ public class User {
     private String name;
 
     @Column
+    private String password;
+
+    @Column
     private String phoneNumber;
 
     // A user can have multiple borrowed books
