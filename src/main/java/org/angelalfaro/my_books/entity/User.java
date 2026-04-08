@@ -18,5 +18,9 @@ public class User {
 
     @Column
     private String phoneNumber;
-    
+
+    // A user can have multiple borrowed books
+    @OneToMany(mappedBy = "borrower", cascade = CascadeType.ALL)
+    private List<Book> borrowedBooks;
+
 }
