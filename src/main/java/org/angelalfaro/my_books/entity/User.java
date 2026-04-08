@@ -20,7 +20,7 @@ public class User {
     private String phoneNumber;
 
     // A user can have multiple borrowed books
-    @OneToMany(mappedBy = "borrower", cascade = CascadeType.ALL)
-    private List<Book> borrowedBooks;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Book> books;
 
 }

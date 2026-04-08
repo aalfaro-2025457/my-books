@@ -17,9 +17,9 @@ public class Book {
     @Column
     private String author;
 
-    // Boolean to track if the book is currently with a friend or at home
+    // Field for the book cover image URL
     @Column
-    private boolean isBorrowed;
+    private String coverUrl;
 
     @ManyToOne
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_user"))
