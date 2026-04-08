@@ -21,6 +21,9 @@ public class Book {
     @Column
     private String coverUrl;
 
+    @Column
+    private String pdfUrl;
+
     @ManyToOne
     @JoinColumn(name = "idUser", foreignKey = @ForeignKey(name = "FK_user"))
     private User owner;

@@ -30,4 +30,8 @@ public class BookService {
     public Book getBookById(Long id){
         return bookRepository.findById(id).orElse(null);
     }
+
+    public List<Book> getBooksByUserId(Long userId) {
+        return bookRepository.findByOwnerIdUser(userId);
+    }
 }

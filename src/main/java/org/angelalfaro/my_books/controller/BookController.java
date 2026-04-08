@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/books")
@@ -20,7 +22,10 @@ public class BookController {
     @GetMapping
     public String listBooks(@RequestParam Long userId, Model model) {
         // We pass the userId to the view to keep the "session" alive in links
-        model.addAttribute("books", bookService.getAllBooks());
+
+        List<Book> userBooks = bookService.getBooksByUserId(userId);
+
+        model.addAttribute("books", userBooks);
         model.addAttribute("userId", userId);
         return "books/list";
     }
