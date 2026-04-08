@@ -1,5 +1,6 @@
 package org.angelalfaro.my_books.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.angelalfaro.my_books.entity.Book;
 import org.angelalfaro.my_books.entity.User;
 import org.angelalfaro.my_books.service.BookService;
@@ -8,17 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("/books")
 public class BookController {
 
     private final BookService bookService;
     private final UserService userService;
-
-    public BookController(BookService bookService, UserService userService) {
-        this.bookService = bookService;
-        this.userService = userService;
-    }
 
     @GetMapping
     public String listBooks(@RequestParam Long userId, Model model) {
@@ -50,5 +47,13 @@ public class BookController {
     public String deleteBook(@PathVariable Long id, @RequestParam Long userId) {
         bookService.deleteBook(id);
         return "redirect:/books?userId=" + userId;
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, @RequestParam Long userId, Model model) {
+        Book book = bookService.getBookById(id);
+        model.addAttribute("book", book);
+        model.addAttribute("userId", userId);
+        return "books/form";
     }
 }

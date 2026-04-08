@@ -1,20 +1,23 @@
-// Function to handle image loading errors (fallbacks)
-const handleImageError = () => {
-    const images = document.querySelectorAll('.book-card__img');
+// Function to validate book removal
+const confirmDeletion = (event) => {
+    if (!confirm('Are you sure you want to remove this book?')) {
+        event.preventDefault();
+    }
+};
 
-    images.forEach(img => {
+// Apply listeners using arrow functions
+const setupEventListeners = () => {
+    // Select all delete buttons
+    const deleteButtons = document.querySelectorAll('.book-card__btn--delete');
+    deleteButtons.forEach(btn => btn.addEventListener('click', confirmDeletion));
+
+    // Handle broken cover URLs
+    const covers = document.querySelectorAll('img');
+    covers.forEach(img => {
         img.addEventListener('error', () => {
-            // Placeholder image if URL is broken
-            img.src = 'https://via.placeholder.com/400x600/1e293b/94a3b8?text=No+Cover+Found';
+            img.src = 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=2730&auto=format&fit=crop';
         });
     });
 };
 
-// Simple log for session feedback
-const initApp = () => {
-    console.log('BookEcho Catalog Initialized');
-    handleImageError();
-};
-
-// DOM Content Loaded Listener
-document.addEventListener('DOMContentLoaded', () => initApp());
+document.addEventListener('DOMContentLoaded', () => setupEventListeners());

@@ -26,4 +26,8 @@ public class BookService {
         // Business logic to remove a book by its ID
         bookRepository.deleteById(id);
     }
+
+    public Book getBookById(Long id){
+        return bookRepository.findById(id).orElse(null);
+    }
 }
