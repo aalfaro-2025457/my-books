@@ -1,0 +1,68 @@
+/* Base styles and custom BEM classes */
+.page-body {
+    min-height: 100vh;
+}
+
+/* Header Component */
+.header {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.header__link {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Book Card Component */
+.book-card {
+    display: flex;
+    flex-direction: column;
+}
+
+.book-card__img {
+    /* Smooth scaling effect on hover */
+    transition: transform 0.5s ease;
+}
+
+.book-card:hover .book-card__img {
+    transform: scale(1.05);
+}
+
+.book-card__btn {
+    width: 100%;
+    cursor: pointer;
+}
+
+/* Form Styles (Shared for Login/Register/AddBook) */
+.form-container {
+    background-color: #0f172a; /* Slate 900 */
+    border: 1px solid #1e293b; /* Slate 800 */
+}
+
+.input-field {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    color: #f1f5f9;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+}
+
+.input-field:focus {
+    outline: 2px solid #3b82f6;
+    border-color: transparent;
+}
+
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-card {
+    transition: box-shadow 0.3s ease;
+}
+
+.auth-card:hover {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.1);
+}

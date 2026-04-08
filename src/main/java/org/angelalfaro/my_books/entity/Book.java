@@ -22,6 +22,6 @@ public class Book {
     private String coverUrl;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "FK_user"))
+    @JoinColumn(name = "idUser", foreignKey = @ForeignKey(name = "FK_user"))
     private User owner;
 }

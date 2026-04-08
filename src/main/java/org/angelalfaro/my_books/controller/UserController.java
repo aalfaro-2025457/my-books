@@ -35,9 +35,15 @@ public class UserController {
         User user = userService.login(username);
         if (user != null) {
             // Passing the ID via redirect to simulate a session
-            return "redirect:/books?userId=" + user.getId();
+            return "redirect:/books?userId=" + user.getIdUser();
         }
         model.addAttribute("error", "Invalid username");
         return "auth/login";
+    }
+
+    @GetMapping("/")
+    public String redirectToRegister() {
+        // Redirects the root URL to the registration page
+        return "redirect:/register";
     }
 }
