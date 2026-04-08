@@ -20,7 +20,12 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user) {
+    public String registerUser(@ModelAttribute User user, Model model) {
+        if (userService.existsByUsername(user.getUsername())) {
+            // Sends an error message back to the view
+            model.addAttribute("error", "Username is already taken");
+            return "auth/register";
+        }
         userService.registerUser(user);
         return "redirect:/login";
     }

@@ -68,6 +68,21 @@
                     Owner: <span th:text="${book.owner.username}">User</span>
                 </div>
             </div>
+
+            <div class="book-card__actions flex flex-col gap-2 mt-4">
+                <a th:if="${book.pdfUrl != null && !book.pdfUrl.isEmpty()}"
+                   th:href="${book.pdfUrl}"
+                   target="_blank"
+                   class="bg-blue-600 hover:bg-blue-500 text-white text-center py-2 rounded text-sm font-bold transition">
+                    Read PDF
+                </a>
+
+                <span th:unless="${book.pdfUrl != null && !book.pdfUrl.isEmpty()}"
+                      class="text-slate-600 text-center py-2 text-xs italic">
+        No PDF available
+    </span>
+            </div>
+
         </article>
 
     </div>
