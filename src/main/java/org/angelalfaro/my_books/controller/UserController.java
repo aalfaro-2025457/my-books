@@ -31,13 +31,12 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String username, Model model) {
-        User user = userService.login(username);
+    public String login(@RequestParam String username, @RequestParam String password, Model model) {
+        User user = userService.login(username, password);
         if (user != null) {
-            // Passing the ID via redirect to simulate a session
             return "redirect:/books?userId=" + user.getIdUser();
         }
-        model.addAttribute("error", "Invalid username");
+        model.addAttribute("error", "Invalid username or password");
         return "auth/login";
     }
 

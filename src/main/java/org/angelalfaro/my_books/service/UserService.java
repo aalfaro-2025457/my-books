@@ -19,10 +19,13 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User login(String username) {
-        // Simple authentication logic without password encryption for this exercise
+    public User login(String username, String password) {
         Optional<User> user = userRepository.findByUsername(username);
-        return user.orElse(null);
+        // Basic check: verify user exists and password matches exactly
+        if (user.isPresent() && user.get().getPassword().equals(password)) {
+            return user.get();
+        }
+        return null;
     }
 
     public User getUserById(Long id) {
