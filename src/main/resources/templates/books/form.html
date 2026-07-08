@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details - BookEcho</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="src/main/resources/static/styles/style.css">
+</head>
+<body class="bg-slate-950 text-slate-200 min-h-screen flex items-center justify-center py-12 px-4">
+
+<div class="form-container bg-slate-900 p-8 rounded-2xl shadow-2xl border border-slate-800 w-full max-w-2xl">
+    <header class="mb-8">
+        <h2 class="text-2xl font-bold text-white" th:text="${book.id == null ? 'Register New Book' : 'Edit Book Details'}">Book Action</h2>
+        <p class="text-slate-400 text-sm">Fill in the information to update your digital library.</p>
+    </header>
+
+    <form th:action="@{/books/save(userId=${userId})}" th:object="${book}" method="post" class="flex flex-col gap-6">
+
+        <input type="hidden" th:field="*{id}">
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="flex flex-col gap-2">
+                <label class="text-sm font-semibold text-slate-400">Book Title</label>
+                <input type="text" th:field="*{title}"
+                       class="bg-slate-800 border border-slate-700 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition"
+                       placeholder="e.g. The Great Gatsby" required>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label class="text-sm font-semibold text-slate-400">Author</label>
+                <input type="text" th:field="*{author}"
+                       class="bg-slate-800 border border-slate-700 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition"
+                       placeholder="e.g. F. Scott Fitzgerald" required>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <label class="text-sm font-semibold text-slate-400">Cover Image URL</label>
+            <input type="url" th:field="*{coverUrl}"
+                   class="bg-slate-800 border border-slate-700 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition"
+                   placeholder="https://example.com/image.jpg" required>
+            <small class="text-slate-500 text-xs">Paste a direct link to the book cover image.</small>
+        </div>
+
+        <div class="flex flex-col gap-2">
+            <label class="text-sm font-semibold text-slate-400">PDF Document URL</label>
+            <input type="url" th:field="*{pdfUrl}"
+                   class="bg-slate-800 border border-slate-700 rounded-lg p-3 text-slate-100 focus:ring-2 focus:ring-blue-500 outline-none"
+                   placeholder="https://example.com/book.pdf">
+        </div>
+
+        <div class="flex items-center justify-end gap-4 mt-4">
+            <a th:href="@{/books(userId=${userId})}" class="text-slate-400 hover:text-white transition text-sm font-medium">
+                Cancel
+            </a>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-3 rounded-lg font-bold shadow-lg shadow-blue-900/20 transition-all transform active:scale-95">
+                Save Book
+            </button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookEcho - Catalog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="page-body bg-slate-950 text-slate-200 font-sans">
+
+<header class="header bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-10">
+    <div class="header__container max-w-7xl mx-auto flex justify-between items-center">
+        <h1 class="header__logo text-2xl font-bold text-blue-400">BookEcho</h1>
+        <nav class="header__nav flex gap-6">
+            <a th:href="@{/books/new(userId=${userId})}" class="header__link hover:text-blue-400 transition">Add Book</a>
+            <a href="/login" class="header__link header__link--logout text-red-400 hover:text-red-300">Logout</a>
+        </nav>
+    </div>
+</header>
+
+<main class="catalog max-w-7xl mx-auto py-10 px-4">
+    <h2 class="catalog__title text-3xl font-semibold mb-8 text-slate-100">Your Collection</h2>
+
+    <div class="catalog__grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+
+        <article th:each="book : ${books}" class="book-card bg-slate-900 rounded-lg overflow-hidden shadow-lg border border-slate-800 hover:border-blue-500/50 transition-all duration-300">
+            <div class="book-card__image-container aspect-[2/3] overflow-hidden bg-slate-800">
+                <img th:src="${book.coverUrl}"
+                     alt="Book cover"
+                     class="book-card__img w-full h-full object-cover">
+            </div>
+
+            <div class="book-card__content p-4">
+                <h3 class="book-card__title text-lg font-bold leading-tight mb-1 truncate" th:text="${book.title}">Book Title</h3>
+                <p class="book-card__author text-slate-400 text-sm mb-3" th:text="${book.author}">Author Name</p>
+
+                <div class="book-card__actions flex flex-col gap-2">
+                    <button class="book-card__btn book-card__btn--view bg-blue-600 hover:bg-blue-500 text-white py-2 rounded text-sm font-medium transition">
+                        Details
+                    </button>
+                    <a th:href="@{/books/delete/{id}(id=${book.id}, userId=${userId})}"
+                       class="book-card__btn book-card__btn--delete text-center text-xs text-slate-500 hover:text-red-400 mt-2 transition">
+                        Remove from collection
+                    </a>
+                </div>
+            </div>
+        </article>
+
+    </div>
+</main>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
