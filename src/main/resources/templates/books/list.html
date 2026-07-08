@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Library - BookEcho</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="src/main/resources/static/styles/style.css">
+</head>
+<body class="bg-slate-950 text-slate-200">
+
+<nav class="header bg-slate-900/50 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <h1 class="text-xl font-bold text-blue-500">BookEcho</h1>
+        <div class="flex items-center gap-6">
+            <a th:href="@{/books/new(userId=${userId})}" class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg text-sm font-bold transition">
+                + Add Book
+            </a>
+            <a href="/login" class="text-slate-400 hover:text-red-400 text-sm transition">Logout</a>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-7xl mx-auto py-12 px-4">
+    <header class="mb-10 flex justify-between items-end">
+        <div>
+            <h2 class="text-4xl font-extrabold text-white mb-2">My Collection</h2>
+            <p class="text-slate-400">Managing total books: <span th:text="${books.size()}">0</span></p>
+        </div>
+    </header>
+
+    <div th:if="${books.isEmpty()}" class="col-span-full py-20 text-center">
+        <div class="text-slate-600 mb-4">
+            <svg class="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            </svg>
+        </div>
+        <h3 class="text-xl font-medium text-slate-400">Your library is empty</h3>
+        <p class="text-slate-500 mt-2">Start adding books to see them here.</p>
+        <a th:href="@{/books/new(userId=${userId})}" class="mt-6 inline-block text-blue-500 hover:text-blue-400 font-bold">
+            Add your first book &rarr;
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+
+        <article th:each="book : ${books}" class="book-card bg-slate-900 rounded-xl overflow-hidden border border-slate-800 flex flex-col hover:shadow-[0_0_20px_rgba(59,130,246,0.15)] transition-all">
+
+            <div class="relative group aspect-[2/3] overflow-hidden">
+                <img th:src="${book.coverUrl}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="Cover">
+
+                <div class="absolute inset-0 bg-slate-900/80 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-3">
+                    <a th:href="@{/books/edit/{id}(id=${book.id}, userId=${userId})}"
+                       class="w-3/4 bg-white text-slate-900 text-center py-2 rounded font-bold text-xs hover:bg-blue-400 transition">
+                        Edit Details
+                    </a>
+                    <a th:href="@{/books/delete/{id}(id=${book.id}, userId=${userId})}"
+                       class="w-3/4 bg-red-500/20 text-red-400 border border-red-500/50 text-center py-2 rounded font-bold text-xs hover:bg-red-500 hover:text-white transition">
+                        Delete
+                    </a>
+                </div>
+            </div>
+
+            <div class="p-4 flex flex-col flex-grow">
+                <h3 class="text-slate-100 font-bold text-lg leading-tight mb-1 truncate" th:text="${book.title}">Title</h3>
+                <p class="text-slate-500 text-sm mb-4" th:text="${book.author}">Author</p>
+                <div class="mt-auto pt-3 border-t border-slate-800 text-[10px] text-slate-600 uppercase tracking-widest font-bold">
+                    Owner: <span th:text="${book.owner.username}">User</span>
+                </div>
+            </div>
+
+            <div class="book-card__actions flex flex-col gap-2 mt-4">
+                <a th:if="${book.pdfUrl != null && !book.pdfUrl.isEmpty()}"
+                   th:href="${book.pdfUrl}"
+                   target="_blank"
+                   class="bg-blue-600 hover:bg-blue-500 text-white text-center py-2 rounded text-sm font-bold transition">
+                    Read PDF
+                </a>
+
+                <span th:unless="${book.pdfUrl != null && !book.pdfUrl.isEmpty()}"
+                      class="text-slate-600 text-center py-2 text-xs italic">
+        No PDF available
+    </span>
+            </div>
+
+        </article>
+
+    </div>
+</main>
+
+<script src="src/main/resources/static/scripts/main.js"></script>
+</body>
+</html>
